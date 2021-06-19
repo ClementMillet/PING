@@ -26,22 +26,22 @@ def predict():
         try:
             img_bytes = file.read()
             image = Image.open(io.BytesIO(img_bytes))
-            image=image.resize((500,500))
             tensor = transform_image(image)
             prediction = get_prediction(tensor)
             
+            '''
             flag = lambda x : True if (x.item() == 1) else False
             return str(flag(prediction))
-            
             '''
-            class_name = lambda x : "a rock" if (x.item() == 1) else "not a rock" 
-            data = {'prediction': prediction.item(), 'class name': class_name(prediction)}
-            return jsonify(data)
+            
+            #class_name = lambda x : "a rock" if (x.item() == 1) else "not a rock" 
+            #data = {'prediction': prediction}
+            return str(prediction)
             
             disp_answer = lambda x : render_template("rock.html") if (x.item() == 1) else render_template("no_rock.html")
             return disp_answer(prediction)
            
-            '''
+            
         except:
             return jsonify({'error': 'error during prediction'})
             
