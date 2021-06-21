@@ -14,6 +14,7 @@ It can be installed with `apt-get install docker docker-compose`
 For the training, just `cd training/` from the main directory and type `python3 model_training.py`.
 To run the evaluation of the training : `python3 model_eval.py`
 The path to the dataset must be changed, and the directories must have the following structures : 
+
 .\
 ├── test\
 │   ├── no_rock\
