@@ -15,12 +15,12 @@ For the training, just `cd training/` from the main directory and type `python3 
 To run the evaluation of the training : `python3 model_eval.py`
 The path to the dataset must be changed, and the directories must have the following structures : 
 `
-.
-├── test
-│   ├── no_rock
-│   └── rock
-└── train
-    ├── no_rock
-    └── rock
+.\
+├── test\
+│   ├── no_rock\
+│   └── rock\
+└── train\
+    ├── no_rock\
+    └── rock\
 `
 To run the web app, type `cd app/` and `docker-compose up --build`, with docker running. Then check http://localhost:5000/ on a browser.
