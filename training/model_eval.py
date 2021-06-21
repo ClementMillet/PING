@@ -1,3 +1,4 @@
+
 import torch
 import torchvision
 from torchvision import datasets, models, transforms
@@ -7,6 +8,12 @@ from os import listdir
 from PIL import Image
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score
+try:
+    import matplotlib
+    import matplotlib.pyplot as plt
+except: 
+    print("No matplotlib module found")
+
 
 #--Variables--
 
@@ -63,3 +70,31 @@ print(cmt)
 print()
 f_score = f1_score(target, prediction, zero_division = 1)
 print('F-score : {:.4f}'.format(f_score))
+print()
+
+try:
+    fig, ax = plt.subplots()
+    im = ax.imshow(cmt)
+
+    labels = ['no rock', 'rock']
+
+    ax.set_xlabel('Prediction')
+    ax.set_ylabel('Target')
+
+    ax.set_xticks(np.arange(len(labels)))
+    ax.set_yticks(np.arange(len(labels)))
+
+    ax.set_xticklabels(labels)
+    ax.set_yticklabels(labels)
+
+    for i in range(2):
+        for j in range(2):
+            text = ax.text(j, i, cmt[i, j], ha="center", va="center", color="r")
+
+    ax.set_title("Confusion Matrix")
+
+    fig.tight_layout()
+    plt.show()
+    
+except:
+    print("No matplotlib module found")
