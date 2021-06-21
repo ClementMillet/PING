@@ -55,7 +55,7 @@ def set_parameter_requires_grad(model, feature_extracting):
             param.requires_grad = False
 
 model = models.resnet18(pretrained=True)
-model_ori = model
+model_ori = copy.deepcopy(model)
 num_ftrs = model.fc.in_features
 set_parameter_requires_grad(model, True)
 model.fc = nn.Linear(num_ftrs, num_class)
