@@ -4,9 +4,9 @@
 
 Pytorch, sk-learn, pandas and scikit-image are required modules to run the training.\
 It can be installed with `pip3 install scikit-image scikit-learn pandas`.\
-Visit https://pytorch.org/ to install pytorch
+Visit https://pytorch.org/ to install pytorch.
 
-To run the server, Docker and docker-compose are required\
+To run the server, Docker and docker-compose are required.\
 It can be installed with `apt-get install docker docker-compose`.
 
 ## Usage
