@@ -6,6 +6,7 @@ import numpy as np
 from os import listdir
 from PIL import Image
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
 
 #--Variables--
 
@@ -25,7 +26,6 @@ input_size = 224
 #--Results--
 
 def transform_image(image):
-    image = image.convert('RGB')
     transform=transforms.Compose([
         transforms.Resize(input_size),
         transforms.CenterCrop(input_size),
@@ -55,5 +55,11 @@ for f in listdir(PATH + 'no_rock'):
     target = np.concatenate((target, [0]))
     prediction = np.concatenate((prediction, pred))
 
+print()
+
 print('Confusion matrix :')
-print(confusion_matrix(target, prediction))
+cmt = confusion_matrix(target, prediction)
+print(cmt)
+print()
+f_score = f1_score(target, prediction, zero_division = 1)
+print('F-score : {:.4f}'.format(f_score))
