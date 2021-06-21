@@ -29,6 +29,8 @@ data_transforms = {
     'train': transforms.Compose([
         transforms.RandomResizedCrop(input_size),
         transforms.RandomHorizontalFlip(),
+        transforms.RandomVerticalFlip(),
+        transforms.ColorJitter(),
         transforms.ToTensor(),
         transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
     ]),
@@ -53,6 +55,7 @@ def set_parameter_requires_grad(model, feature_extracting):
             param.requires_grad = False
 
 model = models.resnet18(pretrained=True)
+model_ori = model
 num_ftrs = model.fc.in_features
 set_parameter_requires_grad(model, True)
 model.fc = nn.Linear(num_ftrs, num_class)
@@ -133,7 +136,7 @@ model, hist = train_model(model, dataloaders_dict, optimizer, criterion, num_epo
 
 print()
 
-PATH = '../app/model.pth'
-torch.save(model.state_dict(), PATH)
-
+PATH = '../app/'
+torch.save(model.state_dict(), PATH + 'model.pth')
+torch.save(model_ori.state_dict(), PATH + 'model_ori.pth')
 print("Model saved")
