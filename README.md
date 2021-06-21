@@ -21,6 +21,6 @@ The path to the dataset must be changed, and the directories must have the follo
 │   └── rock\
 └── train\
     ├── no_rock\
-    └── rock\
+    └── rock
     
 To run the web app, type `cd app/` and `docker-compose up --build`, with docker running. Then check http://localhost:5000/ on a browser.
