@@ -28,19 +28,21 @@ def predict():
             image = Image.open(io.BytesIO(img_bytes))
             tensor = transform_image(image)
             prediction = get_prediction(tensor)
+
+            return str(prediction)
             
             '''
             flag = lambda x : True if (x.item() == 1) else False
             return str(flag(prediction))
-            '''
             
-            #class_name = lambda x : "a rock" if (x.item() == 1) else "not a rock" 
-            #data = {'prediction': prediction}
-            return str(prediction)
+            
+            class_name = lambda x : "a rock" if (x.item() == 1) else "not a rock" 
+            data = {'prediction': prediction}
+        
             
             disp_answer = lambda x : render_template("rock.html") if (x.item() == 1) else render_template("no_rock.html")
             return disp_answer(prediction)
-           
+            '''
             
         except:
             return jsonify({'error': 'error during prediction'})
