@@ -18,10 +18,12 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 #--Variables--
 
 data_dir = "/mnt/d/Users/cleme/Pictures/PING/rocks_no_rocks" 
+PATH = '../app/'
 num_class = 2
 batch_size = 4
 num_epoch = 15
 input_size = 224
+feature_extract = False
 
 #--Load Data--
 
@@ -55,19 +57,21 @@ def set_parameter_requires_grad(model, feature_extracting):
             param.requires_grad = False
 
 model = models.resnet18(pretrained=True)
-model_ori = copy.deepcopy(model)
+torch.save(model.state_dict(), PATH + 'model_ori.pth')
 num_ftrs = model.fc.in_features
-set_parameter_requires_grad(model, True)
+set_parameter_requires_grad(model, feature_extract)
 model.fc = nn.Linear(num_ftrs, num_class)
 
 #--Training and Validation
 
 model.to(device)
 
-params_to_update = []
-for _,param in model.named_parameters():
-    if param.requires_grad == True:
-        params_to_update.append(param)
+params_to_update = model.parameters()
+if feature_extract:
+    params_to_update = []
+    for _,param in model.named_parameters():
+        if param.requires_grad == True:
+            params_to_update.append(param)
 
 optimizer = optim.SGD(params_to_update, lr=0.001, momentum=0.9)
 
@@ -136,7 +140,5 @@ model, hist = train_model(model, dataloaders_dict, optimizer, criterion, num_epo
 
 print()
 
-PATH = '../app/'
 torch.save(model.state_dict(), PATH + 'model.pth')
-torch.save(model_ori.state_dict(), PATH + 'model_ori.pth')
 print("Model saved")
