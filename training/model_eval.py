@@ -68,8 +68,14 @@ print('Confusion matrix :')
 cmt = confusion_matrix(target, prediction)
 print(cmt)
 print()
+precision = cmt[1,1]/(cmt[1,1] + cmt[0,1])
+print('Precision = {:.4f}'.format(precision))
+print()
+recall = cmt[1,1]/(cmt[1,1] + cmt[1,0])
+print('Recall = {:.4f}'.format(recall))
+print()
 f_score = f1_score(target, prediction, zero_division = 1)
-print('F-score : {:.4f}'.format(f_score))
+print('F-score = {:.4f}'.format(f_score))
 print()
 
 try:
@@ -93,8 +99,11 @@ try:
 
     ax.set_title("Confusion Matrix")
 
+    plt.suptitle("Precision = {:.2f}, Recall = {:.2f}, F-Score = {:.2f}".format(precision, recall, f_score))
+
     fig.tight_layout()
     plt.show()
     
 except:
     print("No matplotlib module found")
+# %%
