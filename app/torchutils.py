@@ -1,7 +1,4 @@
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torchvision
 from torchvision import models
 import torchvision.transforms as transforms
 import numpy as np
@@ -10,26 +7,7 @@ from PIL import Image
 import io
 import copy
 
-PATH = "model.pth"
-
-input_size = 224
-
-imagenet_class = []
-
-with open('imagenet_class.csv', newline='') as csvfile:
-    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-    for row in spamreader:
-        imagenet_class.append(row)
-
-model = models.resnet18(pretrained=True)
-model_ori = copy.deepcopy(model)
-num_ftrs = model.fc.in_features
-model.fc = nn.Linear(num_ftrs, 2)
-model.load_state_dict(torch.load(PATH, map_location=torch.device('cpu')))
-model.eval()
-model_ori.eval()
-
-def transform_image(image):
+def transform_image(image, input_size):
     image = image.convert('RGB')
     transform=transforms.Compose([
         transforms.Resize(input_size),
@@ -39,7 +17,7 @@ def transform_image(image):
     ])
     return transform(image).unsqueeze(0)
 
-def get_prediction(image_tensor):
+def get_prediction(image_tensor, model, model_ori, imagenet_class):
     output = model(image_tensor)
     _, predicted = torch.max(output.data, 1)
     if predicted == 1:
