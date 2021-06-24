@@ -22,7 +22,7 @@ It can be installed with `apt-get install docker.io docker-compose`.
 
 For the training, just `cd training/` from the main directory and type `python3 model_training.py`.\
 To run the evaluation of the training : `python3 model_eval.py`.\
-The path to the dataset must be changed, and the directories must have the following structure :
+The path to the dataset `data_dir` must be changed, and the directories must have the following structure :
 ```
 .
 ├── test
@@ -32,4 +32,6 @@ The path to the dataset must be changed, and the directories must have the follo
     ├── no_rock
     └── rock
 ```
+The training could update or not all the weights of the model, whether the variable `feature_extract` is true or not.
+
 To run the web app, type `cd app/` and `docker-compose up --build`, with docker running. Then check http://localhost:5000/ on a browser.
