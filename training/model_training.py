@@ -57,7 +57,7 @@ def set_parameter_requires_grad(model, feature_extracting):
             param.requires_grad = False
 
 model = models.resnet18(pretrained=True)
-torch.save(model.state_dict(), PATH + 'model_ori.pth')
+#torch.save(model.state_dict(), PATH + 'model_ori.pth')
 num_ftrs = model.fc.in_features
 set_parameter_requires_grad(model, feature_extract)
 model.fc = nn.Linear(num_ftrs, num_class)
