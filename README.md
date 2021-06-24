@@ -4,7 +4,7 @@
 
 The goal of this project is to create a web service based on a classifier, which can detect the presence of rock in an image.
 
-The project contains a python script for training using finetuning on the resnet model, and another to evaluate the model.\
+The project contains a python script for training using fine tuning on the resnet model, and another to evaluate the model.\
 The web service use flask, and is containerized via docker.
 
 The web app takes an image and returns a str object, with the label 'rock' if there the classifier detect the presence of a rock in an image, else it returns the name of the imagenet class that the base resnet model has predicted.
