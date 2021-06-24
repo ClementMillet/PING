@@ -21,8 +21,15 @@ def get_prediction(image_tensor, model, model_ori, imagenet_class):
     output = model(image_tensor)
     _, predicted = torch.max(output.data, 1)
     if predicted == 1:
-        return ['rock', torch.max(output.data)]
+        return ['rock', output.data]
     else:
         outputs = model_ori(image_tensor)
         _,predicted = torch.max(outputs.data, 1)
-        return [imagenet_class[predicted][0], torch.max(outputs.data)]
+        max1 = copy.copy(outputs.data[0,predicted])
+        outputs.data[0,predicted] = -1000
+        _,predicted1 = torch.max(outputs.data, 1)
+        max2 = copy.copy(outputs.data[0,predicted1])
+        outputs.data[0,predicted1] = -1000
+        _,predicted2 = torch.max(outputs.data, 1)
+        max3 = copy.copy(outputs.data[0,predicted2])
+        return [imagenet_class[predicted][0],max1, max2, max3]

@@ -6,7 +6,7 @@ import torch.nn as nn
 import csv
 import copy
 
-im_dir = "/mnt/d/Users/cleme/Pictures/hkmeme.png"
+im_dir = "/mnt/d/Users/cleme/Pictures/jackolantern.jpg"
 
 PATH = "model.pth"
 
